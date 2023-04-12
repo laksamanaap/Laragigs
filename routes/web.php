@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ListingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models;
@@ -18,22 +19,14 @@ use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
 */
 
 // All Listing
-Route::get('/' , function() {
-    return view('listings', [ // => File
-        'heading' => "Latest Listings", // => Variabel $heading
-        'listings' => Listing::all() // => Variabel $listings yang memanggil method all dari class listing
-    ]);
-});
+Route::get('/',[ListingController::class, 'index']);
 // => Route default yang menampilkan data(model) dari listing dan memanggil fungsi(method) all 
 // pada class listing
 
 
 // Single Listing
-Route::get('/listings/{id}', function($id) {
-    return view('listing', [
-        'listing' => Listing::find($id)
-    ]);
-});
+Route::get('/listings/{id}', [ListingController::class, 'show']);
+
 // => Route listing yang menampilkan data(model) dari listing dan menyesuaikan route sesuai dengan id listing tersebut
 // melalui fungsi(method) find pada class listing 
 
