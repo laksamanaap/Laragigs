@@ -16,7 +16,7 @@
             
             <x-listing-tags :tagsCsv="$listing->tags"/> 
             <!-- ":tagsCsv" = component name -->
-            <!-- "$listing->tags" = data come from -->
+            <!-- "$listing->tags" = where data come from -->
 
             <div class="text-lg mt-4">
                 <i class="fa-solid fa-location-dot"></i> {{ $listing->location }}
