@@ -26,10 +26,17 @@ Route::get('/',[ListingController::class, 'index']);
 // Show create form listing
 Route::get('/listings/create', [ListingController::class, 'create']);
 
+
+// Store listing data
+Route::post('/listings', [ListingController::class, 'store']);
+
+
 // Single Listing
 Route::get('/listings/{id}', [ListingController::class, 'show']);
 // => Route listing yang menampilkan data(model) dari listing dan menyesuaikan route sesuai dengan id listing tersebut
 // melalui fungsi(method) find pada class listing 
+
+
 
 
 // Route::get('/posts/{id}', function($id) { // Send data $id to parameter
