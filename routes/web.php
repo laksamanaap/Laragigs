@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\ListingController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use App\Models;
 use App\Models\Listing;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ListingController;
 use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
 
 /*
@@ -30,16 +31,27 @@ Route::get('/listings/create', [ListingController::class, 'create']);
 // Store listing data
 Route::post('/listings', [ListingController::class, 'store']);
 
+// Show Edit form
+Route::get('/listings/{listing}/edit', [ListingController::class, 'edit']);
+
+// Update Listing
+Route::put('/listings/{listing}', [ListingController::class, 'update']);
+
+// Delete Listing
+Route::delete('listings/{listing}', [ListingController::class, 'destroy']);
 
 // Single Listing
-Route::get('/listings/{id}', [ListingController::class, 'show']);
+Route::get('/listings/{listing}', [ListingController::class, 'show']);
 // => Route listing yang menampilkan data(model) dari listing dan menyesuaikan route sesuai dengan id listing tersebut
 // melalui fungsi(method) find pada class listing 
 
+// Show Register Form
+Route::get('/register', [UserController::class, 'create']);
 
+// Create User
+Route::post('/users', [UserController::class, 'store']);
 
-
-// Route::get('/posts/{id}', function($id) { // Send data $id to parameter
+// Route::get('/posts/{listing}', function($id) { // Send data $id to parameter
 //     // dd($id); // Mencari error (Debugging)
 //     return response('Post ' . $id);
 // })->where('id', '[0-9]+'); // Integer Only

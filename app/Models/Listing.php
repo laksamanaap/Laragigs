@@ -10,6 +10,8 @@ class Listing extends Model
     use HasFactory;
     
     protected $fillable = ['title', 'logo' ,'company', 'location', 'website', 'email', 'description', 'tags'];
+    // Mengirim semua field yang telah diisi pada variabel ke database
+    // fillable merupakan sebuah 'variabel' mass asignment rule dimana kita bisa mendaftarkan atribut mana yang akan kita insert ke database
 
     public function scopeFilter($query, array $filters) {
         if($filters['tag'] ?? false) { // ?? = jika tidak false

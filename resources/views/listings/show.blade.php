@@ -6,12 +6,10 @@
 
             <div class="mx-4">
                 <x-card class="p-10">
-                    <div
-                        class="flex flex-col items-center justify-center text-center"
-                    >
+                    <div class="flex flex-col items-center justify-center text-center">
                         <img
                             class="w-48 mr-6 mb-6"
-                            src="{{asset('images/no-image.png')}}"
+                            src="{{ $listing->logo ? asset('storage/' . $listing->logo) : asset('/images/no-image.png')}}"
                             alt=""
                         />
 
@@ -43,10 +41,25 @@
                                     target="_blank"
                                     class="block bg-black text-white py-2 rounded-xl hover:opacity-80"
                                     ><i class="fa-solid fa-globe"></i> Visit
-                                    Website</a
-                                >
+                                    Website</a>
                             </div>
                         </div>
+                    </x-card>
+
+                    <x-card class="mt-2 p-2 flex space-x-6">
+                        <a href="/listings/{{ $listing->id }}/edit">
+                        <i class="fa-solid fa-pencil"></i>Edit
+                        </a>
+
+                        <form method="POST" action="/listings/{{ $listing->id }}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="text-red-500" onclick="return confirm('Are you sure?')">
+                                <i class="fa-solid fa-trash">
+                                </i> Delete
+                            </button>
+                        </form>
+                    </x-card>
+
                     </div>
-                </x-card>
             </x-layout>
