@@ -24,7 +24,7 @@ class ListingController extends Controller
     }
 
     // Show single listings
-    public function show(Listing $listing) {
+    public function show(Listing $listing) { // ('/listings/ "{listing}" come from
         return view('listings.show', [
             'listing' => $listing // => File / components name / variable
         ]);
@@ -35,25 +35,26 @@ class ListingController extends Controller
         return view('listings.create');
     }
 
-    // Store listings
+    // Store Listing Data
     public function store(Request $request) {
+        
+        
+        
         $formFields = $request->validate([
             'title' => 'required',
-            'company' => ['required', Rule::unique('listings', 
-            'company')],
+            'company' => ['required', Rule::unique('listings', 'company')],
             'location' => 'required',
-            'title' => 'required',
-            'email' => ['required', 'email'],
             'website' => 'required',
+            'email' => ['required', 'email'],
             'tags' => 'required',
             'description' => 'required'
         ]);
 
         if($request->hasFile('logo')) {
             $formFields['logo'] = $request->file('logo')->store('logos', 'public');
-        } // => Jika user mengupload file pada form, maka sistem akan
-        // mengirim field logo dan file yang dikirim oleh user tadi akan 
-        // disimpan pada folder app/public/logos sesuai yang kita atur pada 'filesystems.php'
+        }
+
+        $formFields['user_id'] = auth()->id();
 
         Listing::create($formFields);
 
@@ -69,6 +70,11 @@ class ListingController extends Controller
 
     // Update listings
     public function update(Request $request, Listing $listing) {
+        
+        if($listing->user_id != $listing->user_id) {
+            abort(403, 'Unauthorized Action');
+        }
+
         $formFields = $request->validate([
             'title' => 'required',
             'company' => 'required',
@@ -92,11 +98,15 @@ class ListingController extends Controller
     }
 
     public function destroy(Listing $listing) {
+        
         $listing->delete();
         
         return redirect('/')->with('message','Listing deleted successfully');
     }
 
+     // Manage Listings
+     public function manage() {
+        return view('listings.manage', ['listings' => auth()->user()->listings()->get()]);
+    }
     
-
 }

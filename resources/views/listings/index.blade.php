@@ -7,7 +7,7 @@
 
 {{-- unless artinya tidak sama dengan / "!" --}}
 
-@unless (count($listings) == 0)
+@unless (count($listings) == 0) <!-- $listings : db name -->
 
 @foreach ($listings as $listing)
     <x-listing-card :listing="$listing" /> 

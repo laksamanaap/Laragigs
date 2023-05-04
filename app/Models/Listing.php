@@ -9,7 +9,7 @@ class Listing extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['title', 'logo' ,'company', 'location', 'website', 'email', 'description', 'tags'];
+    protected $fillable = ['user_id','title', 'logo' ,'company', 'location', 'website', 'email', 'description', 'tags'];
     // Mengirim semua field yang telah diisi pada variabel ke database
     // fillable merupakan sebuah 'variabel' mass asignment rule dimana kita bisa mendaftarkan atribut mana yang akan kita insert ke database
 
@@ -28,4 +28,11 @@ class Listing extends Model
             // "tags" = come from db
         }
     }
+
+    // Relationship To User
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+
 }
